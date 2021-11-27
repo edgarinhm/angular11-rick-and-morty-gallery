@@ -1,0 +1,6 @@
+<ul class="paginator">
+  <li *ngFor="let page of pages;let i = index" (click)="search($event, i)"
+    [className]="'page ' + (i + 1 === currentPage? 'selected-page': '')">
+    {{i + 1}}
+  </li>
+</ul>
