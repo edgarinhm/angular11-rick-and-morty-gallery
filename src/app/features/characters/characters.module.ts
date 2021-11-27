@@ -5,7 +5,7 @@ import { CharactersRoutingModule } from './characters-routing.module';
 import { CharacterComponent } from './pages/character/character.component';
 import { SearchComponent } from './components/search/search.component';
 import { HomeComponent } from './pages/home/home.component';
-import { PaginatorComponent } from '../../shared/paginator/paginator.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -13,12 +13,12 @@ import { PaginatorComponent } from '../../shared/paginator/paginator.component';
     CharacterComponent,
     SearchComponent,
     HomeComponent,
-    PaginatorComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     CharactersRoutingModule,
+    SharedModule
   ]
 })
 export class CharactersModule { }

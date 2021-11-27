@@ -11,11 +11,12 @@ export class PaginatorComponent implements OnInit {
   @Output() infoChange: EventEmitter<any> = new EventEmitter();
 
   public pages: any[] = [];
-  public currentPage: number = 1;
+  public currentPage = 1;
 
-  constructor() { }
+  constructor() {/** */}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    /** */
   }
 
 }
