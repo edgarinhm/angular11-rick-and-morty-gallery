@@ -1,0 +1,11 @@
+## This rule redirects to an external API
+[build]
+  publish = "dist/angular-exercise"
+  command = "ng build --prod"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+- netlify build
+- netlify deploy
