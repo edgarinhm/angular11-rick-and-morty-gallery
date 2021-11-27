@@ -72,9 +72,7 @@ node_modules
 .npm-debug.log
 tmp
 
-
-
-
 ###
+.vscode/
 ###                                                                                                                                                                                                                                  git#263536
 ###
