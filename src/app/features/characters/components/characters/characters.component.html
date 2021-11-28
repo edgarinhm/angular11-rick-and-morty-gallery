@@ -7,9 +7,11 @@
   <app-paginator [(info)]="info" [(pages)]="pages" (searchEmitter)="search('',$event)" [(currentPage)]="currentPage">
   </app-paginator>
   <app-search (getCharactersEmitter)="search($event, 0)"></app-search>
-  <app-character [(info)]="info" [(pages)]="pages" [(characters)]="characters" [(currentPage)]="currentPage">
-  </app-character>
-  <div>
-    Page: {{currentPage}} of {{info.pages}}
+  <div class="main-container">
+    <div class="paginator-counter">
+      Page: {{currentPage}} of {{info.pages}}
+    </div>
+    <app-character [(info)]="info" [(pages)]="pages" [(characters)]="characters" [(currentPage)]="currentPage">
+    </app-character>
   </div>
 </div>
