@@ -13,8 +13,9 @@ input[type=search] {
 }
 
 .main-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  /* POSITION */
+  position: relative;
+
 }
 
 .paginator {
@@ -31,4 +32,20 @@ input[type=search] {
 
 .selected-page {
   background: #dadada;
+}
+
+.gallery-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.gallery-container img {
+  height: 10rem;
+  width:  10rem;
+}
+
+.paginator-counter {
+  float: right;
+  right: 5px;
+  position: fixed;
 }

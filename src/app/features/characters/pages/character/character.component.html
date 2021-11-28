@@ -1,4 +1,4 @@
-<div class="main-container" (scroll)="onWindowScroll($event)">
+<div class="gallery-container" (scroll)="onWindowScroll($event)">
   <div *ngFor="let character of characters">
     <img [src]="character.image" [alt]="character.name" (click)="showDetails(character)">
     <p>{{character.name}}</p>
