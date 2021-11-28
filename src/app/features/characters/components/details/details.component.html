@@ -1,27 +1,15 @@
-<div class="character-container">
-  <img [src]="character.image" [alt]="character.name">
-  <div>
-    <table alt="" scope="ff">
-      <tbody>
-        <tr>
-          <td><label for="name">Name: </label></td>
-          <td>{{character.name}}</td>
-        </tr>
-        <tr>
-          <label for="gender">Gender: </label>
-          <td>{{character.gender}}</td>
-        </tr>
-        <tr>
-          <label for="status">Status: </label>
-          <td>{{character.status}}</td>
-        </tr>
-        <tr>
-          <label for="species">Species: </label>
-          <td>{{character.species}}</td>
-        </tr>
-      </tbody>
-    </table>
-    <button (click)="return()">Back</button>
+
+
+<h2 class="title">Rick and Morty Characters Detail</h2>
+<div class="detail-container">
+  <div class="card">
+    <img [src]="character.image" alt="Avatar" style="width:100%">
+    <div class="container">
+      <h4><strong>{{character.name}}</strong></h4>
+      <p><strong>Species </strong>{{character.species}}</p>
+      <p><strong>Gender </strong>{{character.gender}}</p>
+      <p><strong>Status </strong>{{character.status}}</p>
+      <p><button class="primary" (click)="return()">Back</button></p>
+    </div>
   </div>
 </div>
-
