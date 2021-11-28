@@ -5,3 +5,47 @@ body {
   font-family: 'Roboto';
   font-size: 14px;
 }
+
+
+input[type=search] {
+  width: 70%;
+  margin-bottom: 30px;
+}
+
+.main-container {
+  /* POSITION */
+  position: relative;
+
+}
+
+.paginator {
+  display:inline-block;
+  margin-bottom: 30px;
+
+}
+
+.page {
+  cursor: pointer;
+  display:inline;
+  padding: 10px;
+}
+
+.selected-page {
+  background: #dadada;
+}
+
+.gallery-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.gallery-container img {
+  height: 10rem;
+  width:  10rem;
+}
+
+.paginator-counter {
+  float: right;
+  right: 5px;
+  position: fixed;
+}

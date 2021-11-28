@@ -17,6 +17,7 @@ export class CharacterComponent implements OnInit {
   @Output() pagesChange: EventEmitter<any> = new EventEmitter();
   @Input() currentPage = 1;
   @Output() charactersChange: EventEmitter<any> = new EventEmitter();
+  @Output() currentPageChange: EventEmitter<any> = new EventEmitter();
 
   scrollBarOffset = false;
 
@@ -51,21 +52,23 @@ export class CharacterComponent implements OnInit {
   }
 
   @HostListener('window:scroll', [])
-  doSomethingOnInternalWindowsScroll($event: Event): void {
+  onWindowScroll($event: Event): void {
     const pageYOffset = window.pageYOffset;
     const documentElementScrollTop = document.documentElement.scrollTop;
     const documentBodyScrollTop  = document.body.scrollTop;
-    const pageYOffsetHeight  = window.document.body.clientHeight-window.innerHeight;
-    if ( pageYOffset >= pageYOffsetHeight ||
+    const pageYOffsetHeight  = window.document.body.clientHeight - window.innerHeight;
+    if ( (pageYOffset >= pageYOffsetHeight ||
       documentElementScrollTop >= pageYOffsetHeight ||
-      documentBodyScrollTop >= pageYOffsetHeight
+      documentBodyScrollTop >= pageYOffsetHeight) &&
+      this.currentPage < this.info.pages
       ){
-        this.getCharacters(this.currentPage + 1);
+        this.currentPage = this.currentPage + 1;
+        this.getCharacters(this.currentPage);
         this.scrollBarOffset = true;
+        this.currentPageChange.emit(this.currentPage);
     }else{
       this.scrollBarOffset = false;
     }
-    // let scrollOffset = $event.srcElement.children[0].scrollTop;
     console.log('internal window pageYOffset: ', pageYOffset,
     'internal documentElementScrollTop', documentElementScrollTop,
     'internal documentBodyScrollTop', documentBodyScrollTop,
@@ -74,7 +77,8 @@ export class CharacterComponent implements OnInit {
     'internal window innerHeight', window.innerHeight,
     'internal window body clientheight', window.document.body.clientHeight,
     'pageYOffsetHeight', pageYOffsetHeight,
-    'OnScroll', (pageYOffset >= pageYOffsetHeight)
+    'OnScroll', (pageYOffset >= pageYOffsetHeight),
+    'this.characters', this.characters
     );
 
   }
