@@ -4,10 +4,12 @@
   </h1>
   <p>Pages: {{info.pages}}</p>
   <p>Total characters: {{info.count}}</p>
-  <div class="container-pages">
-    <app-paginator [(info)]="info" [(pages)]="pages" (searchEmitter)="search($event)"></app-paginator>
-  </div>
-  <div class="main-container" (window:scroll)="doSomethingOnWindowsScroll($event)">
-    <app-character [(info)]="info" [(pages)]="pages" [(characters)]="characters" ></app-character>
+  <app-paginator [(info)]="info" [(pages)]="pages" (searchEmitter)="search('',$event)" [(currentPage)]="currentPage">
+  </app-paginator>
+  <app-search (getCharactersEmitter)="search($event, 0)"></app-search>
+  <app-character [(info)]="info" [(pages)]="pages" [(characters)]="characters" [(currentPage)]="currentPage">
+  </app-character>
+  <div>
+    Page: {{currentPage}} of {{info.pages}}
   </div>
 </div>

@@ -11,7 +11,7 @@ export class PaginatorComponent implements OnInit {
   @Output() infoChange: EventEmitter<any> = new EventEmitter();
 
   @Input() pages: any[] = [];
-  public currentPage = 1;
+  @Input() currentPage = 1;
 
   @Output() searchEmitter: EventEmitter<any> = new EventEmitter();
 
@@ -29,12 +29,6 @@ export class PaginatorComponent implements OnInit {
   search(index): void {
     this.searchEmitter.emit(index);
   }
-
-  /* @HostListener('scroll', ['$event'])
-  doSomethingOnInternalScroll($event: Event): void{
-    const scrollOffset = document.documentElement.scrollTop;
-    console.log('scroll: ', scrollOffset);
-  }} */
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
