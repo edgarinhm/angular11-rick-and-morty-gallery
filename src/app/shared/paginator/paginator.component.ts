@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-paginator',
@@ -10,12 +10,40 @@ export class PaginatorComponent implements OnInit {
   @Input() info: any = null;
   @Output() infoChange: EventEmitter<any> = new EventEmitter();
 
-  public pages: any[] = [];
-  public currentPage: number = 1;
+  @Input() pages: any[] = [];
+  @Input() currentPage = 1;
 
-  constructor() { }
+  @Output() searchEmitter: EventEmitter<any> = new EventEmitter();
 
-  ngOnInit() {
+  /** Infinite Scroll */
+  showScrollHeight = 400;
+  hideScrollHeight = 200;
+  showGoUpButton = false;
+
+  constructor() {/** */}
+
+  ngOnInit(): void {
+    /** */
   }
+
+  search(index): void {
+    this.searchEmitter.emit(index);
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    if (( window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop) > this.showScrollHeight) {
+      this.showGoUpButton = true;
+    } else if ( this.showGoUpButton &&
+      (window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop)
+      < this.hideScrollHeight) {
+      this.showGoUpButton = false;
+    }
+  }
+
 
 }

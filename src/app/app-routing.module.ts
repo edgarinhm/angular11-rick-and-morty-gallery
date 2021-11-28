@@ -12,6 +12,7 @@ const routes: Routes = [
     path: '404',
     component: ErrorPageComponent
   },
+  { path: 'home', loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule) },
   {
     path: '**',
     // component: ErrorPageComponent
