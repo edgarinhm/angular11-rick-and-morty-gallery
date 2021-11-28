@@ -3,8 +3,7 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.2.
 
 # Architecture
-![architecture container diagram]
-(https://raw.githubusercontent.com/edgarinhm/rick-and-morty-gallery/blob/main/documentation/architecture/container-diagram.drawio.png)
+![architecture container diagram](https://raw.githubusercontent.com/edgarinhm/rick-and-morty-gallery/blob/main/documentation/architecture/container-diagram.drawio.png)
 
 ## Development server
 
