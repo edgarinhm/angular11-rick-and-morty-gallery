@@ -1,0 +1,13 @@
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+  <p>Pages: {{info.pages}}</p>
+  <p>Total characters: {{info.count}}</p>
+  <div class="container-pages">
+    <app-paginator [(info)]="info" [(pages)]="pages" (searchEmitter)="search($event)"></app-paginator>
+  </div>
+  <div class="main-container" (window:scroll)="doSomethingOnWindowsScroll($event)">
+    <app-character [(info)]="info" [(pages)]="pages" [(characters)]="characters" ></app-character>
+  </div>
+</div>

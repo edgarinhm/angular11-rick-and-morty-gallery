@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { Character } from 'src/app/core/interfaces/character.interface';
 import { CharacterService } from 'src/app/core/services/character.service';
@@ -10,11 +10,15 @@ import { CharacterService } from 'src/app/core/services/character.service';
 })
 export class CharacterComponent implements OnInit {
 
-  public characters: any[] = [];
+  @Input() characters: any[] = [];
   @Input() info: any = null;
   @Output() infoChange: EventEmitter<any> = new EventEmitter();
-  public pages: any[] = [];
-  public currentPage: number = 1;
+  @Input() pages: any[] = [];
+  @Output() pagesChange: EventEmitter<any> = new EventEmitter();
+  @Input() currentPage = 1;
+  @Output() charactersChange: EventEmitter<any> = new EventEmitter();
+
+  scrollBarOffset = false;
 
   constructor(private characterService: CharacterService, private router: Router ) { }
 
@@ -24,10 +28,16 @@ export class CharacterComponent implements OnInit {
 
   getCharacters(page: number = 1, name: string = ''): void {
     this.characterService.characters(page, name).subscribe(response => {
-      this.characters = response.results
+
+      this.characters = this.scrollBarOffset ? this.characters.concat(response.results) :
+      response.results;
+
+      this.charactersChange.emit(this.characters);
+      this.info = response.info;
       this.infoChange.emit(response.info);
       this.pages = Array(this.info.pages).map((x, i) => i);
-    })
+      this.pagesChange.emit(this.pages);
+    });
   }
 
   search(q, n): void {
@@ -38,6 +48,35 @@ export class CharacterComponent implements OnInit {
   showDetails(character: Character): void {
     localStorage.setItem('character-detail', JSON.stringify(character));
     this.router.navigate(['/character/details']);
+  }
+
+  @HostListener('window:scroll', [])
+  doSomethingOnInternalWindowsScroll($event: Event): void {
+    const pageYOffset = window.pageYOffset;
+    const documentElementScrollTop = document.documentElement.scrollTop;
+    const documentBodyScrollTop  = document.body.scrollTop;
+    const pageYOffsetHeight  = window.document.body.clientHeight-window.innerHeight;
+    if ( pageYOffset >= pageYOffsetHeight ||
+      documentElementScrollTop >= pageYOffsetHeight ||
+      documentBodyScrollTop >= pageYOffsetHeight
+      ){
+        this.getCharacters(this.currentPage + 1);
+        this.scrollBarOffset = true;
+    }else{
+      this.scrollBarOffset = false;
+    }
+    // let scrollOffset = $event.srcElement.children[0].scrollTop;
+    console.log('internal window pageYOffset: ', pageYOffset,
+    'internal documentElementScrollTop', documentElementScrollTop,
+    'internal documentBodyScrollTop', documentBodyScrollTop,
+    'internal $event', $event,
+    'internal window', window,
+    'internal window innerHeight', window.innerHeight,
+    'internal window body clientheight', window.document.body.clientHeight,
+    'pageYOffsetHeight', pageYOffsetHeight,
+    'OnScroll', (pageYOffset >= pageYOffsetHeight)
+    );
+
   }
 
 }
